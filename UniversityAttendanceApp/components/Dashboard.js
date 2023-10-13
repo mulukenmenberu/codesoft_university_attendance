@@ -83,7 +83,7 @@ const Dashboard = () => {
       </View>
       </Card>
 
-      <StatusBar backgroundColor='#5E27E7' />
+      <StatusBar backgroundColor='#6495ED' />
     </ScrollView>
   );
 };
