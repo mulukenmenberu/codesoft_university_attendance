@@ -1,4 +1,4 @@
-package com.todo_list_app;
+package com.university_attendance_app;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "todo_list_app";
+    return "university_attendance_app";
   }
 
   /**

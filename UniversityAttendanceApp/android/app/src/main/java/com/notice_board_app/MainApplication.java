@@ -1,4 +1,4 @@
-package com.todo_list_app;
+package com.university_attendance_app;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

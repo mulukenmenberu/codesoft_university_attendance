@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.todo_list_app"
+    namespace "com.university_attendance_app"
     defaultConfig {
-        applicationId "com.todo_list_app"
+        applicationId "com.university_attendance_app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
