@@ -25,7 +25,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <SearchBar
         placeholder="Search..."
         lightTheme
@@ -84,15 +84,13 @@ const Dashboard = () => {
       </Card>
 
       <StatusBar backgroundColor='#6495ED' />
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    // padding: 10,
-    // backgroundColor: '#5E27E7'
+    flex: 1,
   },
   gridContainer: {
     flexDirection: 'column',
