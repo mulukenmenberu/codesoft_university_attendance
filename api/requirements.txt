@@ -1,6 +1,10 @@
 Flask==2.1.1
 # Flask-MySQL-Connector==8.1.0
-Flask-MySQL-Connector==0.2.0
+# Flask-MySQL-Connector==0.2.0
+flask-sqlalchemy==2.5.1
+Flask-Migrate==3.1.0
+
+
 Werkzeug==2.0.1
 flask-cors==3.0.10
 flask-restful==0.3.9
