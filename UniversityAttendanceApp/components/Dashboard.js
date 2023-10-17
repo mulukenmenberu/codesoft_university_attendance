@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#566573' />
+      <StatusBar backgroundColor='#34495E' />
 
       <Card containerStyle={styles.dashboardCard}>
         <View style={styles.gridContainer}>
@@ -45,7 +45,7 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1B2631',
+    backgroundColor: '#17202A',
   },
   gridContainer: {
     flexDirection: 'column',
@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    backgroundColor: '#566573',
+    backgroundColor: '#34495E',
     margin: 0,
     borderWidth: 0, // Remove the border
-    borderColor: '#566573', // Set the border color to match the background
+    borderColor: '#34495E', // Set the border color to match the background
   },
 });
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { Input, Button, Card, Icon, Text } from 'react-native-elements';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -28,7 +28,8 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Card title="Login">
+      <StatusBar backgroundColor='#17202A' />
+      <Card style={styles.card}>
         <Input
           placeholder="Email"
           leftIcon={<Icon name="email" />}
@@ -55,7 +56,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#17202A'
   },
+  card: {
+    backgroundColor: '#34495E'
+  }
 });
 
 export default Login;
