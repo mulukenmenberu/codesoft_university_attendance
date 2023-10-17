@@ -6,6 +6,8 @@ import React, { Component } from 'react'; import {
   TouchableOpacity
 } from 'react-native';
 import Swiper from 'react-native-swiper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 const Splash = ({navigation}) => {
   return (
     <Swiper style={styles.wrapper} showsButtons={false}>
@@ -17,9 +19,22 @@ const Splash = ({navigation}) => {
       </View>
       <View style={styles.slide3}>
         <Text style={styles.text}>You are amazing</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ borderRadius: 20, alignSelf: 'center', alignItems: 'center', width: 200, height: 50, color: '#fff', backgroundColor: '#087AFC', marginTop: 20, justifyContent: 'center' }}>
-        <Text style={{ justifyContent: 'center', fontSize: 20, color: '#fff' }}>Continue</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+  onPress={() => navigation.navigate('Login')}
+  style={{
+    borderRadius: 70, // Set the borderRadius to half the desired width
+    alignSelf: 'center',
+    alignItems: 'center',
+    width: 70, // Make sure the width and height are the same
+    height: 70, // Make sure the width and height are the same
+    backgroundColor: '#087AFC',
+    marginTop: 20,
+    justifyContent: 'center',
+  }}
+>
+  <AntDesign name='rightcircleo' size={40} color={'#fff'}/>
+</TouchableOpacity>
+
       </View>
     </Swiper>
   );
@@ -31,16 +46,16 @@ const styles = StyleSheet.create({
   },
   slide1: {
     flex: 1,
-    justifyContent: 'center', alignItems: 'center', backgroundColor: '#caff75'
+    justifyContent: 'center', alignItems: 'center', backgroundColor: '#1B2631'
   },
   slide2: {
     flex: 1,
-    justifyContent: 'center', alignItems: 'center', backgroundColor: '#fffa73'
+    justifyContent: 'center', alignItems: 'center', backgroundColor: '#1B2631'
   },
   slide3: {
     flex: 1,
     justifyContent: 'center', alignItems: 'center',
-    backgroundColor: '#6cf5d9'
+    backgroundColor: '#1B2631'
   },
   text: {
     color: '#6e596d', fontSize: 25, fontWeight: 'bold'

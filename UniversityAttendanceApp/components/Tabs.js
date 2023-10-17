@@ -16,7 +16,7 @@ const Tabs = () => {
         tabBarActiveTintColor: '#e91e63',
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#6495ED',
+          backgroundColor: '#566573',
       },
       
       }}
