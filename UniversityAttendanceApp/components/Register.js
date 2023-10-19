@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text,StatusBar } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 import { Card } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUp, resetState } from '../redux/reducers/authReducer';
 
 const Register = ({ navigation }) => {
+  const [fullname, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullNameError, setFullNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
+  const [role, setRole] = useState(1)
   const dispatch = useDispatch();
   const { userInfo, loading, success, errorMessage } = useSelector((state) => state.user);
 
-  
+  const handleRole = (role)=>{
+    setRole(role)
+  }
   useEffect(() => {
     if (userInfo.access_token) {
       // Registration success, handle navigation, e.g., go to the dashboard
@@ -28,9 +32,13 @@ const Register = ({ navigation }) => {
 
   const handleRegister = () => {
     setEmailError('');
+    setFullNameError('');
     setPasswordError('');
     setConfirmPasswordError('');
 
+    if (!fullname) {
+      setFullNameError('Full Name is required');
+    }
     if (!email) {
       setEmailError('Email is required');
     }
@@ -44,15 +52,15 @@ const Register = ({ navigation }) => {
       setConfirmPasswordError('Passwords do not match');
     }
 
-    if (email && password && confirmPassword && password === confirmPassword) {
+    if (fullname && email && password && confirmPassword && password === confirmPassword) {
       // Perform registration logic
       // You can add your registration logic here
     const data  = {
         "username":email,
         "email":email,
         "password":"asdasd",
-        "fullname":"asdsad",
-        "role":"asd"
+        "fullname":fullname,
+        "role":role
     }
       dispatch(signUp(data))
 
@@ -61,8 +69,17 @@ const Register = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Card style={styles.card} title="Registration">
+        <StatusBar backgroundColor='#fff' barStyle="dark-content" />
+
+      <Card style={styles.card}>
         <Input
+          placeholder="Full Name"
+          leftIcon={<Icon name="person" />}
+          value={fullname}
+          onChangeText={(text) => setFullName(text)}
+          errorMessage={emailError}
+        />
+            <Input
           placeholder="Email"
           leftIcon={<Icon name="email" />}
           value={email}
@@ -85,8 +102,20 @@ const Register = ({ navigation }) => {
           secureTextEntry
           errorMessage={confirmPasswordError}
         />
-        <Button title="Register" onPress={handleRegister} />
-        <TouchableOpacity style={styles.register} onPress={() => navigation.navigate('Login')}>
+        <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
+        <TouchableOpacity style={role==1?styles.roleselected: styles.role} onPress={()=>handleRole('1')}>
+          <Text style={role==1?styles.roleTextSelected: styles.roleText}>I'm a student</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={role==2?styles.roleselected: styles.role} onPress={()=>handleRole('2')}>
+          <Text style={role==2?styles.roleTextSelected: styles.roleText}>I'm a teacher</Text>
+        </TouchableOpacity>
+        </View>
+
+
+        <TouchableOpacity style={styles.register} onPress={handleRegister}>
+          <Text style={{ fontSize: 17 }}>Register</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.login} onPress={() => navigation.navigate('Login')}>
           <Text style={{ fontSize: 17 }}>Login</Text>
         </TouchableOpacity>
       </Card>
@@ -99,12 +128,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor:'#fff'
   },
   card: {
     borderRadius: 15,
     padding: 10,
+    backgroundColor:'#ffff'
   },
-  register: {
+  roleText:{
+    fontSize:17,
+    color:'#222'
+  },
+  roleTextSelected:{
+    fontSize:17,
+    color:'#fff'
+  },
+  login: {
     width: '100%',
     height: 40,
     marginTop: 10,
@@ -113,7 +152,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     justifyContent: 'center',
-    borderColor: 'green',
+    borderColor: '#9FE2BF',
+  },
+
+  role: {
+    width: '40%',
+    height: 40,
+    marginTop: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    alignItems: 'center',
+    borderWidth: 2,
+    justifyContent: 'center',
+    borderColor: '#008080',
+  },
+
+  roleselected: {
+    width: '40%',
+    height: 40,
+    marginTop: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#008080',
+  },
+  register: {
+    width: '100%',
+    height: 40,
+    marginTop: 10,
+    // backgroundColor: '#fff',
+    borderRadius: 10,
+    alignItems: 'center',
+    // borderWidth: 2,
+    justifyContent: 'center',
+    backgroundColor: '#9FE2BF',
   },
 });
 

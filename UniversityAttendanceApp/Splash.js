@@ -16,7 +16,7 @@ const Splash = ({ navigation }) => {
 
 
       <View style={styles.slide1}>
-        <StatusBar backgroundColor='#1B2631' />
+        <StatusBar backgroundColor='#fff' barStyle="dark-content" />
         <Image
           source={require('./assets/slogo.png')} // Replace with the path to your image
           style={styles.imagelogo}
@@ -44,7 +44,7 @@ const Splash = ({ navigation }) => {
             alignItems: 'center',
             width: 70, // Make sure the width and height are the same
             height: 70, // Make sure the width and height are the same
-            backgroundColor: '#34495E',
+            backgroundColor: '#9FE2BF',
             marginTop: 20,
             justifyContent: 'center',
           }}
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     width: "100%", // Set the width of the image
     height: 200, // Set the height of the image
     borderRadius:20,
-    borderColor: 'white',  // Border color
-    borderWidth: 1, 
+    // borderColor: '#222',  // Border color
+    // borderWidth: 1, 
   },
   imagelogo: {
     width: "100%", // Set the width of the image
@@ -75,18 +75,18 @@ const styles = StyleSheet.create({
   },
   slide1: {
     flex: 1,
-    justifyContent: 'center', alignItems: 'center', backgroundColor: '#1B2631'
+    justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'
   },
   slide2: {
     flex: 1,
-    justifyContent: 'center', alignItems: 'center', backgroundColor: '#1B2631'
+    justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'
   },
   slide3: {
     flex: 1,
     justifyContent: 'center', alignItems: 'center',
-    backgroundColor: '#1B2631'
+    backgroundColor: '#fff'
   },
   text: {
-    color: '#FFF', fontSize: 25, fontWeight: 'bold',marginTop:50
+    color: '#222', fontSize: 25, fontWeight: 'bold',marginTop:50
   }
 });

@@ -13,10 +13,10 @@ const Tabs = () => {
     <Tab.Navigator
       initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: '#fff',
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#34495E',
+          backgroundColor: '#9FE2BF',
       },
       
       }}

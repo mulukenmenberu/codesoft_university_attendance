@@ -28,7 +28,8 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#17202A' />
+        <StatusBar backgroundColor='#fff' barStyle="dark-content" />
+
       <Card style={styles.card}>
         <Input
           placeholder="Email"
@@ -45,7 +46,9 @@ const Login = ({ navigation }) => {
           secureTextEntry
           errorMessage={passwordError}
         />
-        <Button title="Login" onPress={handleLogin} />
+        <TouchableOpacity  style = {styles.login} onPress={handleLogin} >
+          <Text style={{fontSize:17, }}>Login</Text>
+        </TouchableOpacity>
         <TouchableOpacity  style = {styles.register} onPress={()=>navigation.navigate('Register')} >
           <Text style={{fontSize:17, }}>Register</Text>
         </TouchableOpacity>
@@ -60,11 +63,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#17202A'
+    backgroundColor: '#fff'
   },
-  card: {
-    backgroundColor: '#34495E'
-  },
+
   register : {
     width:"100%",
     height:40,
@@ -74,12 +75,26 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderWidth:2,
     justifyContent:'center',
-    borderColor:'green'
+    borderColor:'#9FE2BF'
+
+  },
+  login : {
+    width:"100%",
+    height:40,
+    marginTop:10,
+    // backgroundColor:'#fff',
+    borderRadius:10,
+    alignItems:'center',
+    // borderWidth:2,
+    justifyContent:'center',
+    backgroundColor:'#9FE2BF'
 
   },
   card:{
     borderRadius:15,
-    padding:10
+    padding:10,
+    backgroundColor:'#fff'
+
   },
 });
 
