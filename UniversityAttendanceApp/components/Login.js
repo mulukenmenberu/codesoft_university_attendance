@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
-import { Input, Button, Card, Icon, Text } from 'react-native-elements';
-
+import { View, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import { Input, Button, Icon, Text } from 'react-native-elements';
+import { Card } from 'react-native-paper';
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +46,10 @@ const Login = ({ navigation }) => {
           errorMessage={passwordError}
         />
         <Button title="Login" onPress={handleLogin} />
+        <TouchableOpacity  style = {styles.register} onPress={()=>navigation.navigate('Register')} >
+          <Text style={{fontSize:17, }}>Register</Text>
+        </TouchableOpacity>
+        
       </Card>
     </View>
   );
@@ -60,7 +64,23 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#34495E'
-  }
+  },
+  register : {
+    width:"100%",
+    height:40,
+    marginTop:10,
+    backgroundColor:'#fff',
+    borderRadius:10,
+    alignItems:'center',
+    borderWidth:2,
+    justifyContent:'center',
+    borderColor:'green'
+
+  },
+  card:{
+    borderRadius:15,
+    padding:10
+  },
 });
 
 export default Login;

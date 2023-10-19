@@ -3,7 +3,8 @@ import { baseURL } from "../../config/baseApi";
 
 //user registration 
 export const signUp = createAsyncThunk('signup', async(user)=>{
-    const response = await baseURL.post('students',user)
+    console.log(" user d", user)
+    const response = await baseURL.post('users',user)
     const { data, headers } = response;
     return { responseData: data, authorization: headers.authorization };
 });

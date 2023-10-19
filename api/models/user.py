@@ -9,9 +9,13 @@ class User(db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    fullname = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.String(255), nullable=False)
+    updated_at = db.Column(db.String(255), nullable=False)
 
-    def create_user(self, username, email, password):
-        user = User(username=username, email=email, password=password)
+    def create_user(self, username, email, password, fullname,role):
+        user = User(username=username, email=email, password=password, fullname=fullname,role=role )
         db.session.add(user)
         db.session.commit()
 

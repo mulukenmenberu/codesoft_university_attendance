@@ -9,9 +9,11 @@ class UserResource(Resource):
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
+        fullname = data.get('fullname')
+        role = data.get('role')
         
         user = User()
-        user.create_user(username, email, password)
+        user.create_user(username, email, password, fullname, role)
         
         return jsonify({'message': 'User created'})
 
