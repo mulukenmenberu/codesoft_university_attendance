@@ -29,17 +29,16 @@ const Splash = ({ navigation }) => {
         {/* <Text style={styles.text}> My Attendances  a place where you can manage your classroom presense </Text> */}
       </View>
       <View style={styles.slide2}>
-        
-        <Image
-          source={require('./assets/student.png')} // Replace with the path to your image
-          style={styles.image}
+      <Image
+          source={require('./assets/logo.png')} // Replace with the path to your image
+          style={styles.imagelogoMain}
         />
         <Text style={styles.text}>Students can mark attendances and manage thier presence</Text>
       </View>
       <View style={styles.slide3}>
-        <Image
-          source={require('./assets/student.png')} // Replace with the path to your image
-          style={styles.image}
+      <Image
+          source={require('./assets/logo.png')} // Replace with the path to your image
+          style={styles.imagelogoMain}
         />
         <Text style={styles.text}>A teacher can manage course list and studnet presence</Text>
         <TouchableOpacity
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   text: {
-    color: '#222', fontSize: 19, fontWeight: 'bold',marginTop:50
+    color: '#222', fontSize: 19, fontWeight: 'bold',marginTop:20,paddingLeft:10, paddingRight:10
   },
   textHead: {
     color: '#222', fontSize: 25, fontWeight: 'bold',marginBottom:50

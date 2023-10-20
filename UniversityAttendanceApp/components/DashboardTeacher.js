@@ -4,7 +4,7 @@ import { SearchBar, Card, Text, Icon } from 'react-native-elements';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { Table, Row, Rows } from 'react-native-table-component';
 
-const Dashboard2 = () => {
+const DashboardTeacher = () => {
   const gridData = [
     [
       { title: 'Card 1', icon: 'user' },
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
   text: { margin: 6 },
 });
 
-export default Dashboard2;
+export default DashboardTeacher;

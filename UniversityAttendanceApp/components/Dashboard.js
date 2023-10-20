@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, StatusBar, Image } from 'react-native';
 import { SearchBar, Card, Text, Icon } from 'react-native-elements';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Schedules from './Schedules';
 const Dashboard = () => {
 
   return (
@@ -21,14 +23,14 @@ const Dashboard = () => {
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' }}>
          
           <Text style={{ fontSize: 20, alignSelf:'center' }}>My Absent Days so far</Text>
-          <Text style={{ fontSize: 30, alignSelf:'center' }}>30 ays</Text>
+          <Text style={{ fontSize: 30, alignSelf:'center' }}>30 days</Text>
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
         <Card containerStyle={styles.card}>
-                  <Icon
-                    name={"user"}
-                    type="font-awesome"
+                  <MaterialIcons
+                    name={"schedule"}
+                  
                     size={50}
                     color="#517fa4"
                   />
@@ -36,9 +38,8 @@ const Dashboard = () => {
                 </Card>
 
                 <Card  containerStyle={styles.card}>
-                  <Icon
-                    name={"user"}
-                    type="font-awesome"
+                  <Entypo
+                    name={"bookmarks"}
                     size={50}
                     color="#517fa4"
                   />
@@ -46,19 +47,19 @@ const Dashboard = () => {
                 </Card>
 
                 <Card  containerStyle={styles.card}>
-                  <Icon
-                    name={"user"}
-                    type="font-awesome"
+                  <FontAwesome5
+                    name={"history"}
                     size={50}
                     color="#517fa4"
                   />
-                  <Text>{"asdsa"}</Text>
+                  <Text>{"History"}</Text>
                 </Card>
 
         </View>
 
 
       </Card>
+      <Schedules/>
     </View>
   );
 };
@@ -66,7 +67,7 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#9FBBE2',
+    backgroundColor: '#fff',
   },
   gridContainer: {
     flexDirection: 'column',
