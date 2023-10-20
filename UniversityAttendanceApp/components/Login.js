@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native';
 import { Input, Button, Icon, Text } from 'react-native-elements';
 import { Card } from 'react-native-paper';
 const Login = ({ navigation }) => {
@@ -29,7 +29,10 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <StatusBar backgroundColor='#fff' barStyle="dark-content" />
-
+        <Image
+          source={require('../assets/logo.png')} // Replace with the path to your image
+          style={styles.imagelogoMain}
+        />
       <Card style={styles.card}>
         <Input
           placeholder="Email"
@@ -95,6 +98,11 @@ const styles = StyleSheet.create({
     padding:10,
     backgroundColor:'#fff'
 
+  },
+  imagelogoMain: {
+    width: "100%", // Set the width of the image
+    height: 200, // Set the height of the image
+    borderRadius:20
   },
 });
 

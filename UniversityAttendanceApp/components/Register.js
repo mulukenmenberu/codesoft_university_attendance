@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text,StatusBar } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text,StatusBar, Image } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 import { Card } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -70,7 +70,10 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <StatusBar backgroundColor='#fff' barStyle="dark-content" />
-
+        <Image
+          source={require('../assets/logo.png')} // Replace with the path to your image
+          style={styles.imagelogoMain}
+        />
       <Card style={styles.card}>
         <Input
           placeholder="Full Name"
@@ -186,6 +189,11 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     justifyContent: 'center',
     backgroundColor: '#9FE2BF',
+  },
+  imagelogoMain: {
+    width: "100%", // Set the width of the image
+    height: 200, // Set the height of the image
+    borderRadius:20
   },
 });
 

@@ -17,13 +17,19 @@ const Splash = ({ navigation }) => {
 
       <View style={styles.slide1}>
         <StatusBar backgroundColor='#fff' barStyle="dark-content" />
+      
         <Image
+          source={require('./assets/logo.png')} // Replace with the path to your image
+          style={styles.imagelogoMain}
+        />
+        {/* <Image
           source={require('./assets/slogo.png')} // Replace with the path to your image
           style={styles.imagelogo}
-        />
-        <Text style={styles.text}>My Attendances, a place where you can manage your classroom presense </Text>
+        /> */}
+        {/* <Text style={styles.text}> My Attendances  a place where you can manage your classroom presense </Text> */}
       </View>
       <View style={styles.slide2}>
+        
         <Image
           source={require('./assets/student.png')} // Replace with the path to your image
           style={styles.image}
@@ -69,6 +75,11 @@ const styles = StyleSheet.create({
     // borderWidth: 1, 
   },
   imagelogo: {
+    width: 200, // Set the width of the image
+    height: 200, // Set the height of the image
+    borderRadius:200
+  },
+  imagelogoMain: {
     width: "100%", // Set the width of the image
     height: 200, // Set the height of the image
     borderRadius:20
@@ -87,6 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   text: {
-    color: '#222', fontSize: 25, fontWeight: 'bold',marginTop:50
+    color: '#222', fontSize: 19, fontWeight: 'bold',marginTop:50
+  },
+  textHead: {
+    color: '#222', fontSize: 25, fontWeight: 'bold',marginBottom:50
   }
 });
