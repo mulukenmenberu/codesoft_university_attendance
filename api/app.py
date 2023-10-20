@@ -21,7 +21,8 @@ if __name__ == '__main__':
     # Other resource imports
 
     api.add_resource(UserResource, '/users')
-    api.add_resource(UserByIdResource, '/users/<int:user_id>')
+    api.add_resource(UserByIdResource, '/users/auth')
+    # api.add_resource(UserByIdResource, '/users/<int:user_id>')
     api.add_resource(UserByUsernameResource, '/users/<string:username>')
 
     # app.run(debug=True)

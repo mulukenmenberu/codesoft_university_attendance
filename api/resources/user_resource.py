@@ -15,7 +15,7 @@ class UserResource(Resource):
         user = User()
         user.create_user(username, email, password, fullname, role)
         
-        return jsonify({'message': 'User created'})
+        return jsonify({'message': 'User created','sucess':True})
 
     def get(self):
         user = User()
@@ -23,6 +23,16 @@ class UserResource(Resource):
         return jsonify(users)
 
 class UserByIdResource(Resource):
+    def post(self):
+        user = User()
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        user_data = user.get_user_by_username(username)
+        if user_data:
+            return jsonify({'success':True, 'id': user_data.id, 'role':user_data.role, 'username': user_data.username, 'email': user_data.email})
+        else:
+            return jsonify({'success':False,'message': 'User not found'})
     def get(self, user_id):
         user = User()
         user_data = user.get_user_by_id(user_id)
@@ -32,6 +42,7 @@ class UserByIdResource(Resource):
             return jsonify({'message': 'User not found'})
 
 class UserByUsernameResource(Resource):
+   
     def get(self, username):
         user = User()
         user_data = user.get_user_by_username(username)

@@ -1,86 +1,114 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, StatusBar, Image } from 'react-native';
 import { SearchBar, Card, Text, Icon } from 'react-native-elements';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import { Table, Row, Rows } from 'react-native-table-component';
-
-const DashboardTeacher = () => {
-  const gridData = [
-    [
-      { title: 'Card 1', icon: 'user' },
-      { title: 'Card 2', icon: 'cog' },
-    ],
-    [
-      { title: 'Card 3', icon: 'chart-pie' },
-      { title: 'Card 4', icon: 'file-alt' },
-    ],
-  ];
-
-  // Sample data for the table
-  const tableHead = ['Header 1', 'Header 2', 'Header 3'];
-  const tableData = [
-    ['Data 1', 'Data 2', 'Data 3'],
-    ['Data 4', 'Data 5', 'Data 6'],
-    ['Data 7', 'Data 8', 'Data 9'],
-  ];
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Schedules from './Schedules';
+const Dashboard = () => {
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <SearchBar placeholder="Search..." lightTheme round />
+    <View style={styles.container}>
+      <StatusBar backgroundColor='#9FE2BF' />
 
-      <View style={styles.gridContainer}>
-        {gridData.map((row, rowIndex) => (
-          <View style={styles.gridRow} key={rowIndex}>
-            {row.map((item, columnIndex) => (
-              <Card key={columnIndex} containerStyle={styles.card}>
-                <Icon
-                  name={item.icon}
-                  type="font-awesome"
-                  size={50}
-                  color="#517fa4"
-                />
-                <Text>{item.title}</Text>
-              </Card>
-            ))}
-          </View>
-        ))}
-      </View>
+      <Card containerStyle={styles.dashboardCard}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <Image
+            source={require('../assets/logo.png')} // Replace with the path to your image
+            style={styles.imagelogoMain}
+          />
+          <Text style={{ fontSize: 20, marginTop: 20 }}>Hello Muluken</Text>
+        </View>
 
-      <Card containerStyle={styles.tableCard}>
-        <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
-          <Row data={tableHead} style={styles.head} textStyle={styles.headText} />
-          <Rows data={tableData} textStyle={styles.text} />
-        </Table>
+        <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' }}>
+         
+          <Text style={{ fontSize: 20, alignSelf:'center' }}>My Absent Days so far</Text>
+          <Text style={{ fontSize: 30, alignSelf:'center' }}>30 days</Text>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+        <Card containerStyle={styles.cardActive}>
+                  <MaterialIcons
+                    name={"schedule"}
+                  
+                    size={50}
+                    color="#517fa4"
+                  />
+                  <Text>{"Schedule"}</Text>
+                </Card>
+
+                <Card  containerStyle={styles.card}>
+                  <Entypo
+                    name={"bookmarks"}
+                    size={50}
+                    color="#517fa4"
+                  />
+                  <Text>{"Courses"}</Text>
+                </Card>
+
+                <Card  containerStyle={styles.card}>
+                  <FontAwesome5
+                    name={"history"}
+                    size={50}
+                    color="#517fa4"
+                  />
+                  <Text>{"History"}</Text>
+                </Card>
+
+        </View>
+
+
       </Card>
-    </ScrollView>
+      <Schedules/>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: 10,
+    flex: 1,
+    // backgroundColor: '#fff',
   },
   gridContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
   },
   gridRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     marginBottom: 10,
   },
-  card: {
-    width: '48%',
+  cardActive: {
+    width: '30%',
+    height:90,
     alignItems: 'center',
+    borderRadius: 14,
+    borderColor: '#40E0D0', // Set the border color to match the background
+    borderWidth: 2, // Remove the border
+
   },
-  tableCard: {
-    marginTop: 20,
-    padding: 10,
+  card: {
+    width: '30%',
+    height:90,
+    alignItems: 'center',
+    borderRadius: 14,
+
   },
-  head: { height: 40, backgroundColor: '#f1f8ff' },
-  headText: { margin: 6, fontWeight: 'bold' },
-  text: { margin: 6 },
+  dashboardCard: {
+    width: '100%',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    backgroundColor: '#9FE2BF',
+    margin: 0,
+    borderWidth: 0, // Remove the border
+    borderColor: '#34495E', // Set the border color to match the background
+  },
+  imagelogoMain: {
+    width: "30%", // Set the width of the image
+    height: 80, // Set the height of the image
+    borderRadius: 20
+  },
 });
 
-export default DashboardTeacher;
+export default Dashboard;

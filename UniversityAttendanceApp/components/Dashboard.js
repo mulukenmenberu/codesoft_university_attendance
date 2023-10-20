@@ -27,7 +27,7 @@ const Dashboard = () => {
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-        <Card containerStyle={styles.card}>
+        <Card containerStyle={styles.cardActive}>
                   <MaterialIcons
                     name={"schedule"}
                   
@@ -67,7 +67,7 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
   },
   gridContainer: {
     flexDirection: 'column',
@@ -79,11 +79,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginBottom: 10,
   },
+  cardActive: {
+    width: '30%',
+    height:90,
+    alignItems: 'center',
+    borderRadius: 14,
+    borderColor: '#40E0D0', // Set the border color to match the background
+    borderWidth: 2, // Remove the border
+
+  },
   card: {
     width: '30%',
     height:90,
     alignItems: 'center',
     borderRadius: 14,
+
   },
   dashboardCard: {
     width: '100%',

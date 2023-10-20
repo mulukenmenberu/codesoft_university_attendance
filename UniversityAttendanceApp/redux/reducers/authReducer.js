@@ -3,7 +3,6 @@ import { baseURL } from "../../config/baseApi";
 
 //user registration 
 export const signUp = createAsyncThunk('signup', async(user)=>{
-    console.log(" user d", user)
     const response = await baseURL.post('users',user)
     const { data, headers } = response;
     return { responseData: data, authorization: headers.authorization };
@@ -11,12 +10,13 @@ export const signUp = createAsyncThunk('signup', async(user)=>{
 
 export const signIn = createAsyncThunk('SignIn', async(data)=>{
     try{
-    const response = await baseURL.post('login',data)
+    const response = await baseURL.post('users/auth',data)
+   
     const { data: responseData, headers } = response;
+  
     return { responseData, authorization: headers.authorization };
 } catch (error) {
     // handle error
-    console.error(error);
     throw error; // re-throw error to let the rejected action be dispatched
 }
 });

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text,StatusBar, Image } from 'react-native';
-import { Input, Button, Icon } from 'react-native-elements';
+import { Input, Button, Icon, Overlay } from 'react-native-elements';
 import { Card } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUp, resetState } from '../redux/reducers/authReducer';
@@ -14,18 +14,33 @@ const Register = ({ navigation }) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+
+
+  
   const [role, setRole] = useState(1)
   const dispatch = useDispatch();
-  const { userInfo, loading, success, errorMessage } = useSelector((state) => state.user);
+  const { userInfo, success, errorMessage } = useSelector((state) => state.user);
 
   const handleRole = (role)=>{
     setRole(role)
   }
   useEffect(() => {
-    if (userInfo.access_token) {
-      // Registration success, handle navigation, e.g., go to the dashboard
-      navigation.navigate('DashboardTabs');
+    console.log(userInfo, " 000")
+    if (userInfo.sucess =='true' || userInfo.sucess === true) { 
+      setShowSuccessAlert(true);
+      setLoading(false);
+      setTimeout(()=>{
+        navigation.navigate('Login');
+      },3000)
+
     } else if (!success) {
+      setLoading(false);
+
+
       // Registration error, handle it
     }
   }, [success, userInfo]);
@@ -55,6 +70,8 @@ const Register = ({ navigation }) => {
     if (fullname && email && password && confirmPassword && password === confirmPassword) {
       // Perform registration logic
       // You can add your registration logic here
+      setLoading(true);
+
     const data  = {
         "username":email,
         "email":email,
@@ -67,10 +84,15 @@ const Register = ({ navigation }) => {
     }
   };
 
+  const handleSuccessAlertClose = () => {
+    // Close the success alert and navigate to the dashboard
+    setShowSuccessAlert(false);
+    // navigation.navigate('DashboardTabs');
+  };
   return (
     <View style={styles.container}>
         <StatusBar backgroundColor='#fff' barStyle="dark-content" />
-        <Image
+    <Image
           source={require('../assets/logo.png')} // Replace with the path to your image
           style={styles.imagelogoMain}
         />
@@ -115,13 +137,25 @@ const Register = ({ navigation }) => {
         </View>
 
 
-        <TouchableOpacity style={styles.register} onPress={handleRegister}>
+        {/* <TouchableOpacity style={styles.register} onPress={handleRegister}>
           <Text style={{ fontSize: 17 }}>Register</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Button
+          title="Register"
+          onPress={handleRegister}
+          buttonStyle={styles.register}
+          titleStyle={{ fontSize: 17 }}
+          disabled={loading}
+          loading={loading}
+        />
+
         <TouchableOpacity style={styles.login} onPress={() => navigation.navigate('Login')}>
           <Text style={{ fontSize: 17 }}>Login</Text>
         </TouchableOpacity>
       </Card>
+      <Overlay isVisible={showSuccessAlert} onBackdropPress={handleSuccessAlertClose}>
+        <Text>Registration Successful!</Text>
+      </Overlay>
     </View>
   );
 };

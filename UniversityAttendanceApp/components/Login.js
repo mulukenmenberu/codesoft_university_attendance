@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native';
-import { Input, Button, Icon, Text } from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, StatusBar, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { Input, Button, Icon, Text, Overlay } from 'react-native-elements';
 import { Card } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
+import { signIn, resetState } from '../redux/reducers/authReducer';
+
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  const dispatch = useDispatch();
+  const { userInfo, success, errorMessage } = useSelector((state) => state.user);
 
   const handleLogin = () => {
     setEmailError('');
@@ -20,19 +28,41 @@ const Login = ({ navigation }) => {
     }
 
     if (email && password) {
-      // Perform login logic
-      // You can add your authentication logic here
-      navigation.navigate('Tabs')
+      setLoading(true);
+      const data = {
+        username: email,
+        password: password,
+      };
+      dispatch(signIn(data));
     }
+  };
+
+  useEffect(() => {
+    console.log(userInfo);
+    if (userInfo.success === true) { // Check as a boolean, not a string
+      // Hide loading spinner and show success alert
+      setLoading(false);
+      setTimeout(()=>{
+        navigation.navigate('Dashboard')
+      },1000)
+      setShowSuccessAlert(true);
+    } else if (errorMessage) {
+      // Handle login error, e.g., show an error message
+      setLoading(false);
+  
+    }
+}, [userInfo, errorMessage]);
+
+  const handleSuccessAlertClose = () => {
+    // Close the success alert and navigate to the dashboard
+    setShowSuccessAlert(false);
+    // navigation.navigate('DashboardTabs');
   };
 
   return (
     <View style={styles.container}>
-        <StatusBar backgroundColor='#fff' barStyle="dark-content" />
-        <Image
-          source={require('../assets/logo.png')} // Replace with the path to your image
-          style={styles.imagelogoMain}
-        />
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+      <Image source={require('../assets/logo.png')} style={styles.imagelogoMain} />
       <Card style={styles.card}>
         <Input
           placeholder="Email"
@@ -49,14 +79,21 @@ const Login = ({ navigation }) => {
           secureTextEntry
           errorMessage={passwordError}
         />
-        <TouchableOpacity  style = {styles.login} onPress={handleLogin} >
-          <Text style={{fontSize:17, }}>Login</Text>
+        <Button
+          title="Login"
+          onPress={handleLogin}
+          buttonStyle={styles.login}
+          titleStyle={{ fontSize: 17 }}
+          disabled={loading}
+          loading={loading}
+        />
+        <TouchableOpacity style={styles.register} onPress={() => navigation.navigate('Register')}>
+          <Text style={{ fontSize: 17 }}>Register</Text>
         </TouchableOpacity>
-        <TouchableOpacity  style = {styles.register} onPress={()=>navigation.navigate('Register')} >
-          <Text style={{fontSize:17, }}>Register</Text>
-        </TouchableOpacity>
-        
       </Card>
+      <Overlay isVisible={showSuccessAlert} onBackdropPress={handleSuccessAlertClose}>
+        <Text>Login Successful!</Text>
+      </Overlay>
     </View>
   );
 };
@@ -66,43 +103,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
 
-  register : {
-    width:"100%",
-    height:40,
-    marginTop:10,
-    backgroundColor:'#fff',
-    borderRadius:10,
-    alignItems:'center',
-    borderWidth:2,
-    justifyContent:'center',
-    borderColor:'#9FE2BF'
-
+  register: {
+    width: '100%',
+    height: 40,
+    marginTop: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    alignItems: 'center',
+    borderWidth: 2,
+    justifyContent: 'center',
+    borderColor: '#9FE2BF',
   },
-  login : {
-    width:"100%",
-    height:40,
-    marginTop:10,
-    // backgroundColor:'#fff',
-    borderRadius:10,
-    alignItems:'center',
-    // borderWidth:2,
-    justifyContent:'center',
-    backgroundColor:'#9FE2BF'
-
+  login: {
+    width: '100%',
+    height: 40,
+    marginTop: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#9FE2BF',
   },
-  card:{
-    borderRadius:15,
-    padding:10,
-    backgroundColor:'#fff'
-
+  card: {
+    borderRadius: 15,
+    padding: 10,
+    backgroundColor: '#fff',
   },
   imagelogoMain: {
-    width: "100%", // Set the width of the image
-    height: 200, // Set the height of the image
-    borderRadius:20
+    width: '100%',
+    height: 200,
+    borderRadius: 20,
   },
 });
 
