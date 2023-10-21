@@ -4,7 +4,7 @@ import { Input, Button, Icon, Text, Overlay } from 'react-native-elements';
 import { Card } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { signIn, resetState } from '../redux/reducers/authReducer';
-
+import { storeUserInfoInDB, getUserInfoFromDB } from '../DB/DB';
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,6 +15,18 @@ const Login = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const { userInfo, success, errorMessage } = useSelector((state) => state.user);
+
+  const handleUserInfo = (userInfo) => {
+    if (userInfo) {
+      if(userInfo.role==1){
+        navigation.navigate('Tabs')
+      }else{
+        navigation.navigate('TabsTeacher')
+      }
+    } else {
+      console.log('No user info in the database.');
+    }
+  };
 
   const handleLogin = () => {
     setEmailError('');
@@ -38,12 +50,21 @@ const Login = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log(userInfo);
+    getUserInfoFromDB(handleUserInfo);
+
+
     if (userInfo.success === true) { // Check as a boolean, not a string
       // Hide loading spinner and show success alert
+      console.log(userInfo)
+      storeUserInfoInDB(userInfo)
       setLoading(false);
       setTimeout(()=>{
-        navigation.navigate('Dashboard')
+        if(userInfo.role==1){
+          navigation.navigate('Tabs')
+        }else{
+          navigation.navigate('TabsTeacher')
+        }
+        
       },1000)
       setShowSuccessAlert(true);
     } else if (errorMessage) {

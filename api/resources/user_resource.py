@@ -30,7 +30,7 @@ class UserByIdResource(Resource):
         password = data.get('password')
         user_data = user.get_user_by_username(username)
         if user_data:
-            return jsonify({'success':True, 'id': user_data.id, 'role':user_data.role, 'username': user_data.username, 'email': user_data.email})
+            return jsonify({'success':True, 'id': user_data.id, 'role':user_data.role, 'username': user_data.username, 'email': user_data.email, 'fullname':user_data.fullname})
         else:
             return jsonify({'success':False,'message': 'User not found'})
     def get(self, user_id):

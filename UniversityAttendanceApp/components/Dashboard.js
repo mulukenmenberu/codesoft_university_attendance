@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, StatusBar, Image } from 'react-native';
 import { SearchBar, Card, Text, Icon } from 'react-native-elements';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Schedules from './Schedules';
+import { getUserInfoFromDB } from '../DB/DB';
 const Dashboard = () => {
+  const [userdata, setUserdata] = useState({})
+  const handleUserInfo = (userInfo) => {
+    if (userInfo) {
+      console.log('Retrieved user info:', userInfo);
+      setUserdata(userInfo)
+    } else {
+      console.log('No user info in the database.');
+    }
+  };
 
+  useEffect(()=>{
+    getUserInfoFromDB(handleUserInfo);
+
+  },[])
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor='#9FE2BF' />
@@ -17,7 +31,7 @@ const Dashboard = () => {
             source={require('../assets/logo.png')} // Replace with the path to your image
             style={styles.imagelogoMain}
           />
-          <Text style={{ fontSize: 20, marginTop: 20 }}>Hello Muluken</Text>
+          <Text style={{ fontSize: 20, marginTop: 20 }}>{ 'Welcome, '+ userdata.fullname }</Text>
         </View>
 
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' }}>

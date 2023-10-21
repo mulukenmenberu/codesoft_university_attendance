@@ -7,9 +7,10 @@ import { Text } from 'react-native-paper';
 const Tab = createBottomTabNavigator();
 
 const LazyDashboard = lazy(() => import('./Dashboard'));
-const Account = lazy(() => import('./Account'));
+const DashboardTeacher = lazy(() => import('./DashboardTeacher'));
+const ManageCourse = lazy(() => import('./DashboardTeacher'));
 
-const Tabs = () => {
+const TabsTeacher = () => {
   const role = 1
   return (
     <Tab.Navigator
@@ -47,6 +48,25 @@ const Tabs = () => {
         )}
       </Tab.Screen>
 
+
+     
+  <Tab.Screen
+    name="Course"
+    options={{
+      tabBarLabel: 'Course',
+      tabBarIcon: ({ color, size }) => (
+        <Entypo name="open-book" color={color} size={size} />
+      ),
+    }}
+  >
+    {() => (
+      <Suspense fallback={<LoadingComponent />}>
+        <ManageCourse />
+      </Suspense>
+    )}
+  </Tab.Screen>
+
+
       <Tab.Screen
         name="Dashboard2"
         options={{
@@ -58,7 +78,7 @@ const Tabs = () => {
       >
         {() => (
           <Suspense fallback={<LoadingComponent />}>
-            <Account />
+            <DashboardTeacher />
           </Suspense>
         )}
       </Tab.Screen>
@@ -66,7 +86,7 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default TabsTeacher;
 
 function LoadingComponent() {
   return <Text>Loading...</Text>; // Replace with your loading indicator component
