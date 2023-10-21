@@ -18,12 +18,29 @@ migrate = Migrate(app, db)
 CORS(app)
 if __name__ == '__main__':
     from resources.user_resource import UserResource, UserByIdResource, UserByUsernameResource
+    from resources.course_resource import CourseResource, CourseByIdResource, CoursesByInstructorResource
+    from resources.course_schedule_esource import CourseScheduleResource, CourseScheduleByIdResource, CourseSchedulesByCourseResource
+
+
     # Other resource imports
 
     api.add_resource(UserResource, '/users')
     api.add_resource(UserByIdResource, '/users/auth')
     # api.add_resource(UserByIdResource, '/users/<int:user_id>')
     api.add_resource(UserByUsernameResource, '/users/<string:username>')
+
+
+    api.add_resource(CourseResource, '/courses')
+    api.add_resource(CourseByIdResource, '/courses/auth')
+    # api.add_resource(CourseByIdResource, '/courses/<int:user_id>')
+    api.add_resource(CoursesByInstructorResource, '/courses/<string:instructor>')
+
+
+
+    api.add_resource(CourseScheduleResource, '/schedule')
+    api.add_resource(CourseScheduleByIdResource, '/schedule/auth')
+    api.add_resource(CourseSchedulesByCourseResource, '/schedule/<string:courseId>')
+
 
     # app.run(debug=True)
     app.run(host='0.0.0.0', port=6000, debug=True)
