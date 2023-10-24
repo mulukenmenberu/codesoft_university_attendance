@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 const sampleData = [
@@ -66,6 +67,26 @@ const Schedules = () => {
           ItemSeparatorComponent={Separator}
         />
       </View>
+      <View style={{ backgroundColor: '#C2CAD2', marginTop: 10, paddingLeft: 10, paddingRight: 10 }}>
+      <Card style={{ backgroundColor: '#C2CAD2' }}>
+      
+      <Card.Content>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Title>{"Add New Course"}</Title>
+         
+        </View>
+        <View>
+            <Ionicons style={{alignSelf:'center', justifyContent:'center'}} name={"add"} size={70} color="#517fa4" />
+          </View>
+      </Card.Content>
+  
+      <View style={{ padding: 10, backgroundColor: '#C2CAD2' }}>
+        <Text></Text>
+        <Text></Text>
+      </View>
+
+  </Card>
+</View>
     </ScrollView>
   );
 };

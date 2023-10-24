@@ -4,6 +4,8 @@ import { SearchBar, Card, Text, Icon } from 'react-native-elements';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Octicons from 'react-native-vector-icons/Octicons';
+
 import Schedules from './Schedules';
 const Dashboard = () => {
 
@@ -22,8 +24,7 @@ const Dashboard = () => {
 
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' }}>
          
-          <Text style={{ fontSize: 20, alignSelf:'center' }}>My Absent Days so far</Text>
-          <Text style={{ fontSize: 30, alignSelf:'center' }}>30 days</Text>
+          <Text style={{ fontSize: 20, alignSelf:'center' }}>Manage Students and Courses Here</Text>
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
@@ -47,12 +48,12 @@ const Dashboard = () => {
                 </Card>
 
                 <Card  containerStyle={styles.card}>
-                  <FontAwesome5
-                    name={"history"}
+                  <Octicons
+                    name={"report"}
                     size={50}
                     color="#517fa4"
                   />
-                  <Text>{"History"}</Text>
+                  <Text>{"Reports"}</Text>
                 </Card>
 
         </View>

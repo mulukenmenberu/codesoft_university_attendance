@@ -18,9 +18,10 @@ const Login = ({ navigation }) => {
 
   const handleUserInfo = (userInfo) => {
     if (userInfo) {
-      if(userInfo.role==1){
+
+      if(userInfo.role=="1"){
         navigation.navigate('Tabs')
-      }else{
+      }else if(userInfo.role=="2"){
         navigation.navigate('TabsTeacher')
       }
     } else {

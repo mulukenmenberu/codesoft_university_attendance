@@ -6,9 +6,9 @@ import { Text } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
 
-const LazyDashboard = lazy(() => import('./Dashboard'));
 const DashboardTeacher = lazy(() => import('./DashboardTeacher'));
 const ManageCourse = lazy(() => import('./DashboardTeacher'));
+const Account = lazy(() => import('./Account'));
 
 const TabsTeacher = () => {
   const role = 1
@@ -43,7 +43,7 @@ const TabsTeacher = () => {
       >
         {() => (
           <Suspense fallback={<LoadingComponent />}>
-            <LazyDashboard />
+            <DashboardTeacher />
           </Suspense>
         )}
       </Tab.Screen>
@@ -78,7 +78,7 @@ const TabsTeacher = () => {
       >
         {() => (
           <Suspense fallback={<LoadingComponent />}>
-            <DashboardTeacher />
+            <Account />
           </Suspense>
         )}
       </Tab.Screen>
