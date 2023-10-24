@@ -36,16 +36,21 @@ class Course(db.Model):
     course_name = db.Column(db.String(255), nullable=False)
     course_code = db.Column(db.String(255), nullable=False)
     instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    credit_hour = db.Column(db.String(255), nullable=True)
+    year = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.String(255), nullable=False)
     updated_at = db.Column(db.String(255), nullable=False)
 
-    def create_course(self, course_name, course_code, instructor_id):
+    def create_course(self, course_name, course_code, instructor_id, credit_hour, year):
         course = Course(
             course_name=course_name,
             course_code=course_code,
             instructor_id=instructor_id,
+      
             created_at="timestamp_here",  # Replace with actual timestamp
-            updated_at="timestamp_here"  # Replace with actual timestamp
+            updated_at="timestamp_here",  # Replace with actual timestamp
+            credit_hour=credit_hour,
+            year=year
         )
         db.session.add(course)
         db.session.commit()

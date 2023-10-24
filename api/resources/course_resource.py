@@ -8,9 +8,11 @@ class CourseResource(Resource):
         course_name = data.get('course_name')
         course_code = data.get('course_code')
         instructor_id = data.get('instructor_id')
+        credit_hour = data.get('credit_hour')
+        year = data.get('year')
 
         course = Course()
-        course.create_course(course_name, course_code, instructor_id)
+        course.create_course(course_name, course_code, instructor_id, credit_hour, year)
 
         return jsonify({'message': 'Course created', 'success': True})
 

@@ -8,6 +8,7 @@ import TabsTeacher from './components/TabsTeacher'
 import Login from './components/Login'
 import Register from './components/Register'
 import Account from './components/Account'
+import DetailPage from './components/DetailPage'
 const Navigation = () => {
     const stack = createNativeStackNavigator()
   return (
@@ -19,6 +20,7 @@ const Navigation = () => {
     <stack.Screen name="Login" component={Login}/>
     <stack.Screen name="Register" component={Register}/>
     <stack.Screen name="Account" component={Account}/>
+    <stack.Screen name="DetailPage" component={DetailPage}/>
 </stack.Navigator>
   )
 }
