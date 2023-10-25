@@ -8,6 +8,12 @@ export const addCourse = createAsyncThunk('addCourse', async(course)=>{
     return { responseData: data, authorization: headers.authorization };
 });
 
+export const getCourse = createAsyncThunk('getCourse', async()=>{
+    const response = await baseURL.get('courses')
+    const { data, headers } = response;
+    return { responseData: data, authorization: headers.authorization };
+});
+
 export const resetState = createAsyncThunk('reset', async()=>{
     return true
 });
@@ -15,7 +21,7 @@ export const resetState = createAsyncThunk('reset', async()=>{
 const courseSlice = createSlice({
     name:"course",
     initialState:{
-        courseInfo:{},
+        courseInfo:[],
         loading:false,
         success:true,
         errorMessage:"",
@@ -50,6 +56,32 @@ const courseSlice = createSlice({
             }
         },
 
+        [getCourse.pending]:(state,action)=>{
+            state.loading=true
+            // state.success =false;
+
+        },
+        [getCourse.fulfilled]:(state,action)=>{
+            state.loading=false;
+            state.success =true;
+            state.courseInfo = action.payload.responseData;
+            state.authorization = action.payload.authorization; // update authorization value in the state
+        },
+        [getCourse.rejected]:(state,action)=>{
+            state.loading=true
+            state.success =false;
+            if (action.error.message === 'Request failed with status code 404') {
+                console.error('Not found error');
+                state.errorMessage = "Something went wrong, please check your network and try again"
+            } else if (action.error.code === 'ECONNABORTED') {
+                console.error('Timeout error');
+                state.errorMessage = "Request timeout. please check your network"
+            } else {
+                console.error(action.error);
+                state.errorMessage = action.error
+
+            }
+        },
         [resetState.fulfilled]:(state,action)=>{
             state.courseInfo={},
             state.loading=false,

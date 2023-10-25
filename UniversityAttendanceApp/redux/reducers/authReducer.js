@@ -13,7 +13,7 @@ export const signIn = createAsyncThunk('SignIn', async(data)=>{
     const response = await baseURL.post('users/auth',data)
    
     const { data: responseData, headers } = response;
-  
+    console.log(data, " -- ")
     return { responseData, authorization: headers.authorization };
 } catch (error) {
     // handle error

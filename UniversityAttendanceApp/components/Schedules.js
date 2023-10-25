@@ -4,17 +4,8 @@ import { Card, Title, Paragraph, Portal, Modal, TextInput, Button, Provider } fr
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCourse, resetState } from '../redux/reducers/courseReducer';
+import { addCourse, getCourse, resetState } from '../redux/reducers/courseReducer';
 import { getUserInfoFromDB } from '../DB/DB';
-
-const sampleData = [
-  {
-    id: '1',
-    title: 'Card 1',
-    content: 'This is the content of Card 1.',
-  },
- 
-];
 
 const Separator = () => <View style={{ height: 10 }} />;
 
@@ -84,6 +75,11 @@ const Schedules = ({navigation}) => {
         year: year
       }
       dispatch(addCourse(data))
+      setTimeout(()=>{
+        dispatch(getCourse())
+        toggleModal()
+
+      },1000)
     }
   };
 const manageRedirect = ()=>[
@@ -93,13 +89,13 @@ const manageRedirect = ()=>[
     <Card style={{ backgroundColor: '#fff' }} onPress={manageRedirect}>
       <Card.Content>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Title>{item.title}</Title>
+          <Title>{item.course_name || ''}</Title>
           <View>
             <MaterialIcons name={"schedule"} size={20} color="#517fa4" />
             <Text>20-23-2023 5:00 - 7:00</Text>
           </View>
         </View>
-        <Paragraph>{item.content}</Paragraph>
+        <Paragraph>{item.course_name || ''}</Paragraph>
       </Card.Content>
       <View style={{ padding: 10, backgroundColor: '#fff' }}>
         <Text>Additional Information:</Text>
@@ -119,6 +115,7 @@ const manageRedirect = ()=>[
   };
 
   useEffect(()=>{
+    dispatch(getCourse())
     getUserInfoFromDB(handleUserInfo);
 
   },[])
@@ -127,13 +124,13 @@ const manageRedirect = ()=>[
     <ScrollView>
       <View style={{ marginTop: 10, paddingLeft: 10, paddingRight: 10 }}>
         <FlatList
-          data={sampleData}
+          data={courseInfo}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={Separator}
         />
       </View>
-      <View style={{ backgroundColor: '#C2CAD2', marginTop: 10, paddingLeft: 10, paddingRight: 10 }}>
+      <View style={{  marginTop: 10, paddingLeft: 10, paddingRight: 10 , marginTop:25}}>
         <Card style={{ backgroundColor: '#C2CAD2' }}>
           <Card.Content>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

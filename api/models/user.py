@@ -1,4 +1,3 @@
-# models/user.py
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref, relationship
@@ -47,8 +46,8 @@ class Course(db.Model):
             course_code=course_code,
             instructor_id=instructor_id,
       
-            created_at="timestamp_here",  # Replace with actual timestamp
-            updated_at="timestamp_here",  # Replace with actual timestamp
+            created_at="timestamp_here", 
+            updated_at="timestamp_here", 
             credit_hour=credit_hour,
             year=year
         )
@@ -57,7 +56,23 @@ class Course(db.Model):
 
     def get_courses(self):
         courses = Course.query.all()
-        return courses
+        course_list = []
+        for course in courses:
+            instructor = User.query.get(course.instructor_id)
+
+            course_data = {
+            'id': course.id,
+            'course_name': course.course_name,
+            'course_code': course.course_code,
+            'instructor_id': course.instructor_id, 
+            'instructor_name': instructor.fullname if instructor else None,
+            'credit_hour': course.credit_hour, 
+            'year': course.year, 
+            # Add instructor name here from User model here by mathing with instructor_id
+        }
+            course_list.append(course_data)
+        print(course_data)
+        return course_list
 
     def get_course_by_id(self, course_id):
         course = Course.query.get(course_id)
@@ -70,8 +85,8 @@ class Course(db.Model):
 class CourseSchedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    day = db.Column(db.String(20), nullable=False)  # Assuming text like "Monday", "Tuesday", etc.
-    time = db.Column(db.String(10), nullable=False)  # Assuming a time format like "HH:MM"
+    day = db.Column(db.String(20), nullable=False)  
+    time = db.Column(db.String(10), nullable=False)  
     created_at = db.Column(db.String(255), nullable=False)
     updated_at = db.Column(db.String(255), nullable=False)
 
@@ -80,8 +95,8 @@ class CourseSchedule(db.Model):
             course_id=course_id,
             day=day,
             time=time,
-            created_at="timestamp_here",  # Replace with actual timestamp
-            updated_at="timestamp_here"  # Replace with actual timestamp
+            created_at="timestamp_here", 
+            updated_at="timestamp_here" 
         )
         db.session.add(schedule)
         db.session.commit()
