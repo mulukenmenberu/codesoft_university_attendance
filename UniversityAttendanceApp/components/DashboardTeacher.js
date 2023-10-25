@@ -7,7 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 import Schedules from './Schedules';
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
 
   return (
     <View style={styles.container}>
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
 
       </Card>
-      <Schedules/>
+      <Schedules navigation={navigation}/>
     </View>
   );
 };

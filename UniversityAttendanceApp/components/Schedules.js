@@ -83,7 +83,7 @@ const Schedules = ({navigation}) => {
     }
   };
 const manageRedirect = ()=>[
-  // navigation.navigate('DetailPage')
+  navigation.navigate('DetailPage')
 ]
   const renderItem = ({ item }) => (
     <Card style={{ backgroundColor: '#fff' }} onPress={manageRedirect}>
@@ -130,6 +130,7 @@ const manageRedirect = ()=>[
           ItemSeparatorComponent={Separator}
         />
       </View>
+      {userdata.role==2?
       <View style={{  marginTop: 10, paddingLeft: 10, paddingRight: 10 , marginTop:25}}>
         <Card style={{ backgroundColor: '#C2CAD2' }}>
           <Card.Content>
@@ -146,7 +147,7 @@ const manageRedirect = ()=>[
           </View>
         </Card>
       </View>
-
+: ''}
       <Portal>
         <Modal visible={modalVisible} onDismiss={toggleModal}>
           <Card>
