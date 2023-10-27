@@ -26,19 +26,17 @@ if __name__ == '__main__':
 
     api.add_resource(UserResource, '/users')
     api.add_resource(UserByIdResource, '/users/auth')
-    # api.add_resource(UserByIdResource, '/users/<int:user_id>')
     api.add_resource(UserByUsernameResource, '/users/<string:username>')
 
 
     api.add_resource(CourseResource, '/courses')
-    api.add_resource(CourseByIdResource, '/courses/auth')
-    # api.add_resource(CourseByIdResource, '/courses/<int:user_id>')
+    api.add_resource(CourseByIdResource, '/courses/find')
     api.add_resource(CoursesByInstructorResource, '/courses/<string:instructor>')
 
 
 
     api.add_resource(CourseScheduleResource, '/schedule')
-    api.add_resource(CourseScheduleByIdResource, '/schedule/auth')
+    api.add_resource(CourseScheduleByIdResource, '/schedule/find')
     api.add_resource(CourseSchedulesByCourseResource, '/schedule/<string:courseId>')
 
 

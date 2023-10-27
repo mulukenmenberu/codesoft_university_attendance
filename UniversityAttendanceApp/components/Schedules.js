@@ -21,7 +21,8 @@ const Schedules = ({navigation}) => {
   const [hourError, setHourError] = useState('');
   const [yearError, setYearError] = useState('');
   const [currentCourse, setCurrentCourse] = useState('');
-
+  const [course_id, setCourseId] = useState('');
+  
   const [secondModalVisible, setSecondModalVisible] = useState(false);
 
   const toggleSecondModal = () => {
@@ -55,7 +56,13 @@ const Schedules = ({navigation}) => {
     }));
   };
 
-
+const submitSchedule = ()=>{
+  const data = {
+      course_id:course_id,
+      schedule:scheduleData
+  }
+    console.log(data)
+}
 
   const dispatch = useDispatch();
   const { courseInfo, success, errorMessage } = useSelector((state) => state.course);
@@ -105,15 +112,16 @@ const Schedules = ({navigation}) => {
       },1000)
     }
   };
-const manageRedirect = (title)=>{
+const manageRedirect = (title, course_id)=>{
   setCurrentCourse(title)
+  setCourseId(course_id)
   toggleSecondModal()
 }
 // open another modal here
 // the modal should have the title of the clicked card, and two fields, date selectbox from monday to friday and time input textbox. thier should be a plus icon to add dynamically this two field groups. then save button to save records   
 
   const renderItem = ({ item }) => (
-    <Card style={{ backgroundColor: '#fff' }} onPress={()=>manageRedirect(item.course_name)}>
+    <Card style={{ backgroundColor: '#fff' }} onPress={()=>manageRedirect(item.course_name, item.course_id)}>
       <Card.Content>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Title>{item.course_name || ''}</Title>
@@ -245,7 +253,7 @@ const manageRedirect = (title)=>{
                 </View>
               ))}
             </View>
-            <Button mode="contained" >
+            <Button mode="contained" onPress={submitSchedule}>
               Save
             </Button>
           </Card.Content>

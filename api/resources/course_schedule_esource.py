@@ -6,13 +6,14 @@ class CourseScheduleResource(Resource):
     def post(self):
         data = request.get_json()
         course_id = data.get('course_id')
-        day = data.get('day')
-        time = data.get('time')
+        schedule_data = data.get('schedule')
 
-        schedule = CourseSchedule()
-        schedule.create_course_schedule(course_id, day, time)
+        for day, time in schedule_data.items():
+            # Create a CourseSchedule object for each day and time
+            schedule = CourseSchedule()
+            schedule.create_course_schedule(course_id, day, time)
 
-        return jsonify({'message': 'Course schedule created', 'success': True})
+        return jsonify({'message': 'Course schedules created', 'success': True})
 
     def get(self):
         schedule = CourseSchedule()
