@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Card, Title, Paragraph, Portal, Modal, TextInput, Button, Provider } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCourse, getCourse, resetState } from '../redux/reducers/courseReducer';
 import { getUserInfoFromDB } from '../DB/DB';
+const DaysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 const Separator = () => <View style={{ height: 10 }} />;
 
@@ -19,6 +20,14 @@ const Schedules = ({navigation}) => {
   const [codeError, setCodeError] = useState('');
   const [hourError, setHourError] = useState('');
   const [yearError, setYearError] = useState('');
+  const [currentCourse, setCurrentCourse] = useState('');
+
+  const [secondModalVisible, setSecondModalVisible] = useState(false);
+
+  const toggleSecondModal = () => {
+    setSecondModalVisible(!secondModalVisible);
+    // You can reset any input fields or state related to the second modal here.
+  };
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -31,6 +40,21 @@ const Schedules = ({navigation}) => {
     setHourError('');
     setYearError('');
   };
+  const [scheduleData, setScheduleData] = useState({
+    Monday: '',
+    Tuesday: '',
+    Wednesday: '',
+    Thursday: '',
+    Friday: '',
+  });
+
+  const handleInputChange = (day, text) => {
+    setScheduleData((prevData) => ({
+      ...prevData,
+      [day]: text,
+    }));
+  };
+
 
 
   const dispatch = useDispatch();
@@ -66,7 +90,6 @@ const Schedules = ({navigation}) => {
     }
 
     if (!hasError) {
-      // toggleModal();
       const data = {
         course_name:courseName, 
         course_code:courseCode,
@@ -82,11 +105,15 @@ const Schedules = ({navigation}) => {
       },1000)
     }
   };
-const manageRedirect = ()=>[
-  navigation.navigate('DetailPage')
-]
+const manageRedirect = (title)=>{
+  setCurrentCourse(title)
+  toggleSecondModal()
+}
+// open another modal here
+// the modal should have the title of the clicked card, and two fields, date selectbox from monday to friday and time input textbox. thier should be a plus icon to add dynamically this two field groups. then save button to save records   
+
   const renderItem = ({ item }) => (
-    <Card style={{ backgroundColor: '#fff' }} onPress={manageRedirect}>
+    <Card style={{ backgroundColor: '#fff' }} onPress={()=>manageRedirect(item.course_name)}>
       <Card.Content>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Title>{item.course_name || ''}</Title>
@@ -131,6 +158,7 @@ const manageRedirect = ()=>[
         />
       </View>
       {userdata.role==2?
+      <>
       <View style={{  marginTop: 10, paddingLeft: 10, paddingRight: 10 , marginTop:25}}>
         <Card style={{ backgroundColor: '#C2CAD2' }}>
           <Card.Content>
@@ -147,16 +175,21 @@ const manageRedirect = ()=>[
           </View>
         </Card>
       </View>
+      <View style={{height:20}}>
+
+      </View>
+      </>
 : ''}
       <Portal>
         <Modal visible={modalVisible} onDismiss={toggleModal}>
-          <Card>
+          <Card style={{backgroundColor:'white'}}>
             <Card.Content>
               <Title>Add New Course</Title>
               <View style={{paddingTop:10}}>
               <TextInput
                 label="Course Name"
                 value={courseName}
+                style={{backgroundColor:'white'}}
                 onChangeText={(text) => setCourseName(text)}
                 error={nameError ? true : false}
               />
@@ -164,6 +197,7 @@ const manageRedirect = ()=>[
               <TextInput
                 label="Course Code"
                 value={courseCode}
+                style={{backgroundColor:'white'}}
                 onChangeText={(text) => setCourseCode(text)}
                 error={codeError ? true : false}
               />
@@ -171,6 +205,7 @@ const manageRedirect = ()=>[
               <TextInput
                 label="Credit Hour"
                 value={creditHour}
+                style={{backgroundColor:'white'}}
                 onChangeText={(text) => setCreditHour(text)}
                 error={hourError ? true : false}
               />
@@ -178,6 +213,7 @@ const manageRedirect = ()=>[
               <TextInput
                 label="Year"
                 value={year}
+                style={{backgroundColor:'white'}}
                 onChangeText={(text) => setYear(text)}
                 error={yearError ? true : false}
               />
@@ -190,8 +226,52 @@ const manageRedirect = ()=>[
           </Card>
         </Modal>
       </Portal>
+   
+      <Portal>
+      <Modal  visible={secondModalVisible} onDismiss={toggleSecondModal}>
+        <Card style={{backgroundColor:'white'}}>
+          <Card.Content>
+            <Title>{currentCourse}</Title>
+            <View style={styles.table}>
+              {DaysOfWeek.map((day, index) => (
+                <View key={index} style={styles.row}>
+                  <Text style={styles.dayText}>{day}:</Text>
+                  <TextInput
+                    label="Type Time (eg 2PM - 4PM)"
+                    value={scheduleData[day]}
+                    onChangeText={(text) => handleInputChange(day, text)}
+                    style={styles.textInput}
+                  />
+                </View>
+              ))}
+            </View>
+            <Button mode="contained" >
+              Save
+            </Button>
+          </Card.Content>
+        </Card>
+      </Modal>
+    </Portal>
     </ScrollView>
   );
 };
 
+const styles = StyleSheet.create({
+  table: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dayText: {
+    marginRight: 10,
+    width: 60, // Adjust this width as needed
+  },
+  textInput: {
+    flex: 1,
+    backgroundColor:'white'
+  },
+});
 export default Schedules
